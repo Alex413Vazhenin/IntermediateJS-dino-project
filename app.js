@@ -1,16 +1,21 @@
 
     // Create Dino Constructor
-    function Dino(species, weight, height, diet, where, when, fact, img) {
+    function Animal(species, weight, height, diet, img) {
         this.species = species;
         this.weight = weight;
         this.height = height;
         this.diet = diet;
-        this.where = where;
-        this.when = when;
-        this.fact = fact;
         this.img = img;
     };
 
+    function Dino(species, weight, height, diet, where, when, facts, img) {
+        Animal.call(this, species, weight, height, diet, img)
+        this.where = where;
+        this.when = when;
+        this.fact = fact;
+    }
+
+    
     // Create Dino Objects
     const triceratops = new Dino( 
             "Triceratops",
