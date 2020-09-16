@@ -14,8 +14,9 @@
         this.when = when;
         this.fact = fact;
     }
-
     
+    Dino.prototype = Object.create(Animal.prototype)
+
     // Create Dino Objects
     const triceratops = new Dino( 
             "Triceratops",
@@ -104,17 +105,77 @@
         "./images/pigeon.png"
     );
 
-    // Create Human Object
-    let human = new Dino(
-        nameInput,
-        weightInput,
-        totalHeight,
-        dietInput,
-        "human",
-        "Late Cretaceous",
-        "",
-        "./images/human.png"
-        );
+    // Create Dino Compare Method 1
+    // NOTE: Weight in JSON file is in lbs, height in inches. 
+    Dino.prototype.compareWeight = function (human) {
+        if (this.species !== human.species) {
+            if (this.weight > human.weight) {
+                this.facts.push(`${this.species} is heavier than ${human.species}`)
+            } else {
+                this.facts.push(`${human.species} is heavier than ${this.species}`)            
+            }
+        };
+    };
+    
+    // Create Dino Compare Method 2
+    // NOTE: Weight in JSON file is in lbs, height in inches.
+    Dino.prototype.compareHeight = function (human) {
+        if (this.species !== human.species) {
+            if (this.height > human.height) {
+                this.facts.push(`${this.species} is taller than ${human.species}`)
+            } else {
+                this.facts.push(`${this.species} is shorter than ${human.species}`)
+            }
+        };
+    };
+    
+    // Create Dino Compare Method 3
+    // NOTE: Weight in JSON file is in lbs, height in inches.
+    Dino.prototype.compareDiet = function (human) {
+        if (this.species !== human.species) {
+            this.facts.push(`${this.species} eats ${this.diet} while ${human.species} eats ${human.diet}`)
+        };
+    };
+
+    // Adding shuffle method
+    function shuffle(array) {
+
+        return array;
+    }
+
+    // Remove form from screen
+    // On button click, prepare and display infographic
+    const compareBtn = document.getElementById("btn");
+    const form = document.getElementById("dino-compare");
+    const grid = document.getElementById("grid");
+    grid.style.display = "none";
+
+    compareBtn.addEventListener("click", function () {
+        form.style.display = "none";
+        grid.style.display = "flex";
+
+    // Use IIFE to get human data from form
+    let humanFromForm = (function getHumanData() {
+        const nameInput = document.getElementById("name").value;
+        const weightInput = document.getElementById("weight").value;
+        const feetHeightInput = document.getElementById("feet").value;
+        const inchesHeightInput = document.getElementById('inches').value;
+        const totalHeight = feetHeightInput * 12 + inchesHeightInput;
+        const dietInput = document.getElementById("diet");
+        
+        // Create Human Object
+        let human = new Dino(
+            nameInput,
+            weightInput,
+            totalHeight,
+            dietInput,
+            "human",
+            "Late Cretaceous",
+            "",
+            "./images/human.png"
+            );
+        return human;
+    })();
 
     // Added all dinos, pigeon and human into array for future comparison
     let dinoArray = [
@@ -126,70 +187,17 @@
         elasmosaurus,
         pteranodon,
         pigeon,
-        human
-      ];
-
-    // Use IIFE to get human data from form
-    let humanFromForm = (function getHumanData() {
-        const nameInput = document.getElementById("name").value;
-        const weightInput = document.getElementById("weight").value;
-        const feetHeightInput = document.getElementById("feet").value;
-        const inchesHeightInput = document.getElementById('inches').value;
-        const totalHeight = feetHeightInput * 12 + inchesHeightInput;
-        const dietInput = document.getElementById("diet");
-        return human;
-    });
-
-    // Create Dino Compare Method 1
-    // NOTE: Weight in JSON file is in lbs, height in inches. 
-    Dino.prototype.compareWeight = function (human) {
-        if (this.species !== human.species) {
-            if (this.weight > human.weight) {
-
-            } else {
-                
-            }
-        };
-    };
-
+        humanFromForm
+    ];
+});
     
-    // Create Dino Compare Method 2
-    // NOTE: Weight in JSON file is in lbs, height in inches.
-    Dino.prototype.compareHeight = function (human) {
-        if (this.species !== human.species) {
-            if (this.height > human.height) {
-
-            } else {
-
-            }
-        };
-    };
-    
-    // Create Dino Compare Method 3
-    // NOTE: Weight in JSON file is in lbs, height in inches.
-    Dino.prototype.compareDiet = function (human) {
-        if (this.species !== human.species) {
-
-        };
-    };
 
     // Generate Tiles for each Dino in Array
     const randomizeDinosInArray = shuffle(dinoArray);
 
-    
-  
         // Add tiles to DOM
 
-    // Remove form from screen
-    const compareBtn = document.getElementById("btn");
-    const form = document.getElementById("dino-compare");
-    const grid = document.getElementById("grid");
-    grid.style.display = "none";
 
-    compareBtn.addEventListener("click", function () {
-        form.style.display = "none";
-        grid.style.display = "flex";
-    });
 
-// On button click, prepare and display infographic
+
 
