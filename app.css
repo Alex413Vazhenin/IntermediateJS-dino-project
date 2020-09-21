@@ -97,7 +97,7 @@ p {
     font-size: 2em;
     color: #eee;
     position: absolute;
-    left: 6em;
+    width: 100%;
     top: 0em;
 }
 
